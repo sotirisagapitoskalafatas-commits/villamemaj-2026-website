@@ -1,0 +1,12 @@
+
+> villamemaj-2026-website@0.1.0 start
+> next start
+
+▲ Next.js 16.4.2
+- Local:         http://localhost:3000
+- Network:       http://169.254.192.152:3000
+✓ Ready in 1065ms
+⚠ Warning: Next.js ignored package-lock.json in C:\Users\kalaf because it is outside the current Git repository (C:\Users\kalaf\villamemaj-2026-website).
+ To use this directory, set `outputFileTracingRoot` in your Next.js config.
+
+✓ Running next.config.ts took 382ms

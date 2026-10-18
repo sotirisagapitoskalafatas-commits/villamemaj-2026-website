@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Villa Memaj — 2026 Website
 
-## Getting Started
+Hotel website built with Next.js 16 (App Router), Tailwind CSS 4 and Supabase.
 
-First, run the development server:
+- Bilingual: **Greek (EL)** default + **English (EN)** — `/el/...`, `/en/...`
+- Pages: Home, Rooms (+ per-room detail), Gallery, Booking request, Contact
+- Booking & contact forms insert into Supabase (`hotel_bookings`, `hotel_contact_messages`)
+- Room/gallery content is managed in Supabase (`hotel_rooms`, `hotel_gallery_images`)
+
+## Local development
 
 ```bash
+npm install
+cp .env.example .env.local   # already created locally
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 (redirects to `/el`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Value |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | `https://jbmccmokfvyvijmumuzn.supabase.co` |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | your Supabase publishable key |
 
-## Learn More
+Add both in **Vercel → Project → Settings → Environment Variables** after connecting the repo.
 
-To learn more about Next.js, take a look at the following resources:
+## Managing content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+All content lives in Supabase (Dashboard → Table Editor):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `hotel_rooms` — rooms/suites (EL/EN names, price, amenities, images)
+- `hotel_gallery_images` — gallery photos
+- `hotel_bookings` — booking requests from the site (status: pending/confirmed/cancelled)
+- `hotel_contact_messages` — contact form messages
 
-## Deploy on Vercel
+Update the hotel's real **phone, email, address** in `src/lib/site.ts`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Push to GitHub, then in Vercel: *Add New → Project → Import this repo*. Vercel auto-detects Next.js. Add the two environment variables above and deploy.
