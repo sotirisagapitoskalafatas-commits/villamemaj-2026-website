@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getDictionary } from "@/lib/i18n";
+import { assetSrc } from "@/lib/assets";
 import { getGalleryImages } from "@/lib/data";
 import { isLocale, SITE_CONFIG, type Locale } from "@/lib/site";
 
@@ -43,7 +44,7 @@ export default async function GalleryPage({
               }`}
             >
               <Image
-                src={image.image_url}
+                src={assetSrc(image.image_url)}
                 alt={
                   (locale === "el" ? image.caption_el : image.caption_en) ??
                   `${SITE_CONFIG.name} ${index + 1}`
