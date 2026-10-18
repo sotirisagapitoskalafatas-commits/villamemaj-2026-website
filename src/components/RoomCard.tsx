@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/i18n";
+import { assetSrc } from "@/lib/assets";
 import type { Locale } from "@/lib/site";
 import type { HotelRoom } from "@/lib/types";
 
@@ -20,7 +21,7 @@ export default function RoomCard({ room, locale, dict }: RoomCardProps) {
       <div className="relative aspect-[4/3] overflow-hidden bg-sand">
         {room.image_url ? (
           <Image
-            src={room.image_url}
+            src={assetSrc(room.image_url)}
             alt={name}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
