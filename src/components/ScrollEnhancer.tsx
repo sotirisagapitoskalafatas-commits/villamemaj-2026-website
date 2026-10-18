@@ -1,15 +1,23 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Lightweight, dependency-free scroll controller.
- * - IntersectionObserver handles one-time entrance reveals.
- * - One requestAnimationFrame loop updates a progress bar and visible parallax
- *   layers. Geometry is read first, then styles are written in a separate pass.
- * - Reduced-motion users receive the final, readable state immediately.
+ * Accessible scroll motion:
+ * - IntersectionObserver provides one-time reveal states.
+ * - GSAP ScrollTrigger scrubs the key editorial layers against page progress.
+ * - A single requestAnimationFrame updates a small progress bar and visible
+ *   fallback parallax layers; geometry reads happen before style writes.
+ * - Reduced-motion users receive the final, readable state without movement.
  */
 export default function ScrollEnhancer() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const progress = document.querySelector<HTMLElement>("[data-scroll-progress]");
     const reveals = Array.from(
@@ -40,6 +48,61 @@ export default function ScrollEnhancer() {
     );
     reveals.forEach((element) => observer.observe(element));
 
+    // ScrollTrigger is reserved for only three prominent visual layers.
+    // Scrubbing is smooth but bounded, and every trigger is reverted on route changes.
+    const gsapContext = gsap.context(() => {
+      document.querySelectorAll<HTMLElement>('[data-scroll-scrub="hero-frame"]').forEach((element) => {
+        gsap.to(element, {
+          yPercent: 9,
+          rotation: -1.5,
+          scale: 1.025,
+          ease: "none",
+          scrollTrigger: {
+            trigger: element,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.8,
+            invalidateOnRefresh: true,
+          },
+        });
+      });
+
+      document.querySelectorAll<HTMLElement>('[data-scroll-scrub="story-image"]').forEach((element) => {
+        gsap.to(element, {
+          yPercent: -7,
+          rotation: -1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: element,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+        });
+      });
+
+      document.querySelectorAll<HTMLElement>('[data-scroll-scrub="energy-trail"]').forEach((element) => {
+        gsap.fromTo(
+          element,
+          { yPercent: 8, rotation: -4, scaleY: 0.92 },
+          {
+            yPercent: -12,
+            rotation: 5,
+            scaleY: 1.04,
+            ease: "none",
+            scrollTrigger: {
+              trigger: element,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      });
+    });
+
     let frame = 0;
     const update = () => {
       frame = 0;
@@ -51,12 +114,9 @@ export default function ScrollEnhancer() {
       if (progress) progress.style.transform = "scaleX(" + ratio + ")";
 
       const viewport = window.innerHeight;
-      // Read all geometry before any writes to reduce the chance of layout work
-      // being forced between elements while scrolling.
-      const visible = parallax.map((element) => {
-        const rect = element.getBoundingClientRect();
-        return { element, rect };
-      }).filter(({ rect }) => rect.bottom >= -120 && rect.top <= viewport + 120);
+      const visible = parallax
+        .map((element) => ({ element, rect: element.getBoundingClientRect() }))
+        .filter(({ rect }) => rect.bottom >= -120 && rect.top <= viewport + 120);
 
       visible.forEach(({ element, rect }) => {
         const distance = Number(element.dataset.parallax || 28);
@@ -75,11 +135,12 @@ export default function ScrollEnhancer() {
 
     return () => {
       observer.disconnect();
+      gsapContext.revert();
       window.removeEventListener("scroll", requestUpdate);
       window.removeEventListener("resize", requestUpdate);
       if (frame) window.cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [pathname]);
 
   return <div data-scroll-progress aria-hidden="true" className="scroll-progress" />;
 }
