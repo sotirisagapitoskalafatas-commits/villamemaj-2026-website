@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import RoomCard from "@/components/RoomCard";
+import { assetSrc } from "@/lib/assets";
 import { getDictionary } from "@/lib/i18n";
 import { getGalleryImages, getRooms } from "@/lib/data";
 import { isLocale, SITE_CONFIG, type Locale } from "@/lib/site";
@@ -87,7 +88,7 @@ export default async function HomePage({
     <div className="premium-home overflow-clip">
       <section className="premium-hero relative isolate flex min-h-[calc(100svh-4rem)] items-center overflow-hidden text-cream">
         <Image
-          src="/723811999.jpg"
+          src={assetSrc("/723811999.jpg")}
           alt={greek ? "Εξωτερική όψη της βίλας" : "Villa exterior at the coast"}
           fill
           priority
@@ -126,7 +127,7 @@ export default async function HomePage({
             <div className="hero-ring hero-ring-one" aria-hidden="true" />
             <div className="hero-ring hero-ring-two" aria-hidden="true" />
             <div className="hero-photo-frame" data-scroll-scrub="hero-frame">
-              <Image src="/902234060.jpg" alt={greek ? "Λεπτομέρεια από τους χώρους φιλοξενίας" : "A detail of the guest interiors"} fill priority sizes="(max-width: 1024px) 88vw, 42vw" className="object-cover" />
+              <Image src={assetSrc("/902234060.jpg")} alt={greek ? "Λεπτομέρεια από τους χώρους φιλοξενίας" : "A detail of the guest interiors"} fill priority sizes="(max-width: 1024px) 88vw, 42vw" className="object-cover" />
               <div className="hero-photo-overlay" />
               <div className="hero-photo-caption">
                 <span className="photo-caption-mark">✳</span>
@@ -153,10 +154,10 @@ export default async function HomePage({
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-2 lg:gap-24 lg:px-12">
           <div className="intro-visual reveal-from-left">
             <div className="intro-image-main" data-scroll-scrub="story-image">
-              <Image src="/723812114.jpg" alt={greek ? "Άνετος εσωτερικός χώρος" : "A relaxed guest interior"} fill sizes="(max-width: 1024px) 90vw, 44vw" className="object-cover" />
+              <Image src={assetSrc("/723812114.jpg")} alt={greek ? "Άνετος εσωτερικός χώρος" : "A relaxed guest interior"} fill sizes="(max-width: 1024px) 90vw, 44vw" className="object-cover" />
             </div>
             <div className="intro-image-small image-parallax" data-parallax="18">
-              <Image src="/723812074.jpg" alt={greek ? "Λεπτομέρεια κουζίνας" : "Kitchen detail"} fill sizes="(max-width: 1024px) 42vw, 20vw" className="object-cover" />
+              <Image src={assetSrc("/723812074.jpg")} alt={greek ? "Λεπτομέρεια κουζίνας" : "Kitchen detail"} fill sizes="(max-width: 1024px) 42vw, 20vw" className="object-cover" />
             </div>
             <div className="intro-stamp scroll-float"><span>J&M</span><span>{greek ? "ΜΕ ΦΡΟΝΤΙΔΑ" : "MADE WITH CARE"}</span></div>
           </div>
@@ -191,15 +192,15 @@ export default async function HomePage({
           </div>
           <div className="moments-grid stagger-reveal">
             <article className="moment-card moment-card-large">
-              <div className="moment-image"><Image src="/769092652.jpg" alt={greek ? "Εξωτερική βεράντα" : "Outdoor terrace"} fill sizes="(max-width: 768px) 100vw, 55vw" className="object-cover image-parallax" data-parallax="22" /></div>
+              <div className="moment-image"><Image src={assetSrc("/769092652.jpg")} alt={greek ? "Εξωτερική βεράντα" : "Outdoor terrace"} fill sizes="(max-width: 768px) 100vw, 55vw" className="object-cover image-parallax" data-parallax="22" /></div>
               <div className="moment-card-copy"><span>01 / {greek ? "ΑΝΑΠΝΟΗ" : "BREATHE"}</span><h3>{greek ? "Αργά πρωινά, καθαρός αέρας." : "Slow mornings, open air."}</h3></div>
             </article>
             <article className="moment-card moment-card-offset">
-              <div className="moment-image"><Image src="/723812029.jpg" alt={greek ? "Άνετο υπνοδωμάτιο" : "Comfortable bedroom"} fill sizes="(max-width: 768px) 100vw, 35vw" className="object-cover image-parallax" data-parallax="18" /></div>
+              <div className="moment-image"><Image src={assetSrc("/723812029.jpg")} alt={greek ? "Άνετο υπνοδωμάτιο" : "Comfortable bedroom"} fill sizes="(max-width: 768px) 100vw, 35vw" className="object-cover image-parallax" data-parallax="18" /></div>
               <div className="moment-card-copy"><span>02 / {greek ? "ΞΕΚΟΥΡΑΣΗ" : "REST"}</span><h3>{greek ? "Ο δικός σας χώρος, ο δικός σας ρυθμός." : "Your own space, your own rhythm."}</h3></div>
             </article>
             <article className="moment-card moment-card-wide">
-              <div className="moment-image"><Image src="/902233984.jpg" alt={greek ? "Θέα προς την ακτή" : "View towards the coast"} fill sizes="(max-width: 768px) 100vw, 55vw" className="object-cover image-parallax" data-parallax="20" /></div>
+              <div className="moment-image"><Image src={assetSrc("/902233984.jpg")} alt={greek ? "Θέα προς την ακτή" : "View towards the coast"} fill sizes="(max-width: 768px) 100vw, 55vw" className="object-cover image-parallax" data-parallax="20" /></div>
               <div className="moment-card-copy"><span>03 / {greek ? "ΑΝΑΚΑΛΥΨΗ" : "DISCOVER"}</span><h3>{greek ? "Αναμνήσεις που συνεχίζονται μετά το ταξίδι." : "Memories that stay long after the journey."}</h3></div>
             </article>
           </div>
@@ -248,7 +249,7 @@ export default async function HomePage({
             {galleryItems.slice(0, 6).map((image, index) => (
               <figure key={image.id} className={"gallery-tile gallery-tile-" + (index + 1)}>
                 <div className="gallery-tile-image">
-                  <Image src={image.image_url} alt={(greek ? image.caption_el : image.caption_en) ?? SITE_CONFIG.name} fill sizes="(max-width: 768px) 50vw, 33vw" className="object-cover image-parallax" data-parallax={index % 2 === 0 ? "18" : "26"} />
+                  <Image src={assetSrc(image.image_url)} alt={(greek ? image.caption_el : image.caption_en) ?? SITE_CONFIG.name} fill sizes="(max-width: 768px) 50vw, 33vw" className="object-cover image-parallax" data-parallax={index % 2 === 0 ? "18" : "26"} />
                 </div>
                 <figcaption><span>0{index + 1}</span>{(greek ? image.caption_el : image.caption_en) ?? (greek ? "Στιγμές φιλοξενίας" : "Moments of hospitality")}</figcaption>
               </figure>
@@ -262,7 +263,7 @@ export default async function HomePage({
       </section>
 
       <section className="quote-section relative isolate overflow-hidden bg-ink text-cream">
-        <Image src="/723815742.jpg" alt="" fill sizes="100vw" className="quote-backdrop image-parallax" data-parallax="22" aria-hidden="true" />
+        <Image src={assetSrc("/723815742.jpg")} alt="" fill sizes="100vw" className="quote-backdrop image-parallax" data-parallax="22" aria-hidden="true" />
         <div className="quote-overlay" />
         <div className="quote-decoration quote-decoration-left" aria-hidden="true">“</div>
         <div className="relative z-10 mx-auto max-w-5xl px-5 py-28 text-center sm:px-8 sm:py-36">
