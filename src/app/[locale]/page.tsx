@@ -125,7 +125,7 @@ export default async function HomePage({
           <div className="hero-art reveal-from-right">
             <div className="hero-ring hero-ring-one" aria-hidden="true" />
             <div className="hero-ring hero-ring-two" aria-hidden="true" />
-            <div className="hero-photo-frame" data-parallax="26">
+            <div className="hero-photo-frame" data-scroll-scrub="hero-frame">
               <Image src="/902234060.jpg" alt={greek ? "Λεπτομέρεια από τους χώρους φιλοξενίας" : "A detail of the guest interiors"} fill priority sizes="(max-width: 1024px) 88vw, 42vw" className="object-cover" />
               <div className="hero-photo-overlay" />
               <div className="hero-photo-caption">
@@ -152,7 +152,7 @@ export default async function HomePage({
       <section className="intro-section relative bg-cream">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-2 lg:gap-24 lg:px-12">
           <div className="intro-visual reveal-from-left">
-            <div className="intro-image-main image-parallax" data-parallax="30">
+            <div className="intro-image-main" data-scroll-scrub="story-image">
               <Image src="/723812114.jpg" alt={greek ? "Άνετος εσωτερικός χώρος" : "A relaxed guest interior"} fill sizes="(max-width: 1024px) 90vw, 44vw" className="object-cover" />
             </div>
             <div className="intro-image-small image-parallax" data-parallax="18">
@@ -175,7 +175,7 @@ export default async function HomePage({
 
       <section className="moments-section relative overflow-hidden bg-sand">
         <WaveTransition tone="sand" />
-        <div className="energy-trail" aria-hidden="true">
+        <div className="energy-trail" data-scroll-scrub="energy-trail" aria-hidden="true">
             <svg viewBox="0 0 180 760" preserveAspectRatio="none">
               <path className="energy-trail-glow" d="M145 0 C20 110 175 190 74 294 S20 482 118 548 S165 680 42 760" />
               <path className="energy-trail-line" d="M145 0 C20 110 175 190 74 294 S20 482 118 548 S165 680 42 760" />
