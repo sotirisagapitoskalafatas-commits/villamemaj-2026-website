@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import BookingForm from "@/components/BookingForm";
+import { assetSrc } from "@/lib/assets";
 import { getDictionary } from "@/lib/i18n";
 import { getRoomBySlug, getRooms } from "@/lib/data";
 import { isLocale, SITE_CONFIG, type Locale } from "@/lib/site";
@@ -59,7 +60,7 @@ export default async function RoomDetailPage({
         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sand">
           {room.image_url ? (
             <Image
-              src={room.image_url}
+              src={assetSrc(room.image_url)}
               alt={name}
               fill
               priority
