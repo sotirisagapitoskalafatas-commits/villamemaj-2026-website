@@ -3,10 +3,10 @@
 import { useEffect } from "react";
 
 /**
- * Small, dependency-free scroll controller.
+ * Lightweight, dependency-free scroll controller.
  * - IntersectionObserver handles one-time entrance reveals.
- * - One requestAnimationFrame loop updates a tiny progress bar and only the
- *   few visible parallax layers; it never reads layout after writing styles.
+ * - One requestAnimationFrame loop updates a progress bar and visible parallax
+ *   layers. Geometry is read first, then styles are written in a separate pass.
  * - Reduced-motion users receive the final, readable state immediately.
  */
 export default function ScrollEnhancer() {
@@ -38,7 +38,6 @@ export default function ScrollEnhancer() {
       },
       { threshold: 0.14, rootMargin: "0px 0px -7% 0px" }
     );
-
     reveals.forEach((element) => observer.observe(element));
 
     let frame = 0;
@@ -52,9 +51,14 @@ export default function ScrollEnhancer() {
       if (progress) progress.style.transform = "scaleX(" + ratio + ")";
 
       const viewport = window.innerHeight;
-      parallax.forEach((element) => {
+      // Read all geometry before any writes to reduce the chance of layout work
+      // being forced between elements while scrolling.
+      const visible = parallax.map((element) => {
         const rect = element.getBoundingClientRect();
-        if (rect.bottom < -120 || rect.top > viewport + 120) return;
+        return { element, rect };
+      }).filter(({ rect }) => rect.bottom >= -120 && rect.top <= viewport + 120);
+
+      visible.forEach(({ element, rect }) => {
         const distance = Number(element.dataset.parallax || 28);
         const visibleTravel = (viewport - rect.top) / (viewport + rect.height);
         const offset = (0.5 - visibleTravel) * distance;
@@ -65,7 +69,6 @@ export default function ScrollEnhancer() {
     const requestUpdate = () => {
       if (!frame) frame = window.requestAnimationFrame(update);
     };
-
     update();
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate, { passive: true });
@@ -78,11 +81,5 @@ export default function ScrollEnhancer() {
     };
   }, []);
 
-  return (
-    <div
-      data-scroll-progress
-      aria-hidden="true"
-      className="scroll-progress"
-    />
-  );
+  return <div data-scroll-progress aria-hidden="true" className="scroll-progress" />;
 }
