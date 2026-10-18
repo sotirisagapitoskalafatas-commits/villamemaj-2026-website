@@ -175,7 +175,13 @@ export default async function HomePage({
 
       <section className="moments-section relative overflow-hidden bg-sand">
         <WaveTransition tone="sand" />
-        <div className="mx-auto max-w-7xl px-5 pb-24 pt-20 sm:px-8 sm:pb-32 lg:px-12">
+        <div className="energy-trail" aria-hidden="true">
+            <svg viewBox="0 0 180 760" preserveAspectRatio="none">
+              <path className="energy-trail-glow" d="M145 0 C20 110 175 190 74 294 S20 482 118 548 S165 680 42 760" />
+              <path className="energy-trail-line" d="M145 0 C20 110 175 190 74 294 S20 482 118 548 S165 680 42 760" />
+            </svg>
+          </div>
+          <div className="mx-auto max-w-7xl px-5 pb-24 pt-20 sm:px-8 sm:pb-32 lg:px-12">
           <div className="section-heading-row">
             <div className="max-w-3xl">
               <p className="section-label reveal-from-bottom">{copy.momentsKicker}</p>
