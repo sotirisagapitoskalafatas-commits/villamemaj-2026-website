@@ -183,6 +183,14 @@ img { height: auto; }
 .intro-meta { display:flex; align-items:center; gap:18px; margin-top:46px; padding-top:18px; border-top:1px solid #e4d9c8; color:#7a7267; font-size:.7rem; letter-spacing:.02em; }
 .meta-number { color:#a67c52; font-family:var(--font-display); font-size:2rem; }
 
+/* A fine animated energy trail adds movement without heavy canvas effects. */
+.energy-trail { position:absolute; z-index:0; top:8%; bottom:6%; right:3.5%; width:min(15vw,180px); opacity:.55; pointer-events:none; }
+.energy-trail svg { width:100%; height:100%; overflow:visible; }
+.energy-trail path { fill:none; stroke-linecap:round; }
+.energy-trail-glow { stroke:rgb(166 124 82 / 28%); stroke-width:8; filter:blur(5px); }
+.energy-trail-line { stroke:#b18d60; stroke-width:1.2; stroke-dasharray:8 16; animation:energy-flow 9s linear infinite; }
+@keyframes energy-flow { to { stroke-dashoffset:-240; } }
+
 /* Moments and editorial cards */
 .moments-section { isolation:isolate; }
 .moments-section > .wave-transition { top:0; bottom:auto; transform:rotate(180deg); }
@@ -203,7 +211,7 @@ img { height: auto; }
 
 /* Room scene */
 .rooms-section { isolation:isolate; }
-.rooms-section > .wave-transition:first-of-type { top:0; bottom:auto; transform:rotate(180deg); }
+.rooms-section > .wave-transition:not(:last-of-type) { top:0; bottom:auto; transform:rotate(180deg); }
 .rooms-section > .wave-transition:last-of-type { bottom:-1px; }
 .rooms-glow { position:absolute; z-index:-1; width:520px; height:520px; border-radius:50%; filter:blur(3px); pointer-events:none; }
 .rooms-glow-one { top:14%; right:-190px; background:radial-gradient(circle,rgb(201 169 126 / 12%),transparent 68%); }
